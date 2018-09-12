@@ -97,7 +97,7 @@ Espring2=abs(1/2*k*(zout2(:,1)-zout2(:,3)-L0).^2)
 
 Etotal1 = KE1 + PE1+Espring1;
 Etotal2 = KE2 + PE2+Espring2;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure(2)
 
 plot(t1,Etotal1);
@@ -125,24 +125,24 @@ legend('total','kinetic','potential','spring');
 
 
 
-
+%%%%%%%%
 % trajectory path in x-y space
-% figure (3) 
-% plot(t1, zout1(:,1));
-% hold on;
-% plot(t1, zout1(:,3));
-% hold on;
-% plot(t2,zout2(:,1));
-% hold on;
-% plot(t2,zout2(:,3));
-% xlabel('time (s)'); ylabel('Height (m)');
-% title('Hopper Top Heavy');
-% title('Hopper Bottom Heavy');
+figure (4) 
+plot(t1, zout1(:,1));
+hold on;
+plot(t1, zout1(:,3));
+hold on;
+plot(t2,zout2(:,1));
+hold on;
+plot(t2,zout2(:,3));
+xlabel('time (s)'); ylabel('Height (m)');
+title('Hopper Top Heavy');
+title('Hopper Bottom Heavy');
 
-% title('Trajectory in Space')
-% ylabel('Vert Displ (m)')
-% xlabel('Horiz Displ (m)')
-% legend ('ode45')
+title('Trajectory in Space')
+ylabel('Vert Displ (m)')
+xlabel('Horiz Displ (m)')
+legend ('ode45')
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
