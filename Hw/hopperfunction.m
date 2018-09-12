@@ -20,10 +20,10 @@ close all
 g = 9.81;              % gravitational acceleration in m/s^2
 ml = 0.01;             % mass in kg
 mu = 0.02;
-k = 9810;               %N/m^2
+k = 9810;               %N/m
 L0=.05;                %mm
 d=.005;                    %mm
-Tstep=0.0001
+Tstep=0.0001;
 %
 
 % Define state variables: 
@@ -58,15 +58,16 @@ T_span2 = [t1(end): Tstep: 1];
 t2(end)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % normal force
-n1=-(-g/mu-g/ml-k/mu/ml*(L0-zout1(:,1)));
-n2=-(-g/mu-g/ml+k/mu/ml*(L0-zout2(:,1)-zout2(:,3)));
+n1=-(-g*mu-g*ml-k*(L0-zout1(:,1)));
+% n2=-(-g/mu-g/ml+k/mu/ml*(L0-zout2(:,1)-zout2(:,3)));
 
 figure (1)
 plot(t1,n1);
-hold on;
-plot(t2,n2);
+% hold on;
+% plot(t2,n2);
+title('Normal Force');  xlabel('time (s)'); ylabel('Force (N)');
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %kinetic, potential, and total energy
 v1u=zout1(:,2); v1l=zout1(:,4); v2u=zout2(:,2); v2l=zout2(:,4);
 
@@ -79,7 +80,7 @@ PE1u =  mu * g * zout1(:,1);
 PE1l =  ml * g * zout1(:,3);
 PE1 = PE1u + PE1l;
 
-Etotal1 = KE1 + PE1;
+
 
 %Phase 2
 KE2u=1/2*(mu).*v2u.^2;
@@ -90,17 +91,40 @@ PE2u =  mu * g * zout2(:,1);
 PE2l =  ml * g * zout2(:,3);
 PE2 = PE2u + PE2l;
 
-Etotal2 = KE2 + PE2;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%spring
+Espring1=abs(1/2*k*(zout1(:,1)-zout1(:,3)-L0).^2)
+Espring2=abs(1/2*k*(zout2(:,1)-zout2(:,3)-L0).^2)
 
-figure (2)
+Etotal1 = KE1 + PE1+Espring1;
+Etotal2 = KE2 + PE2+Espring2;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+figure(2)
+
 plot(t1,Etotal1);
 hold on;
 plot(t1,KE1);
 hold on;
 plot(t1,PE1);
+hold on;
+plot(t1,Espring1);
+title('Energy Phase 1');
+legend('total','kinetic','potential','spring');
 
-legend('total','kinetic','potential');
+
+figure (3)
+
+plot(t2,Etotal2);
+hold on;
+plot(t2,KE2);
+hold on;
+plot(t2,PE2);
+hold on;
+plot(t2,Espring2);
+title('Energy Phase 2');
+legend('total','kinetic','potential','spring');
+
+
+
 
 % trajectory path in x-y space
 % figure (3) 
@@ -153,9 +177,9 @@ end
 function [eventvalue,stopthecalc,eventdir] = event_switch(T,Z)
      
         % stop when Z(3)= z3= y = 0 (mass hits the ground in y-dir)
-        eventvalue  =  Z(1)-Z(3)-L0;    %  ‘Events’ are detected when eventvalue=0
+        eventvalue  =  -(-g/mu-g/ml-k/mu/ml*(L0-Z(1)));    %  ‘Events’ are detected when eventvalue=0
         stopthecalc =  1;       %  Stop if event occurs
-        eventdir    = 1;       %  Detect only events with dydt<0
+        eventdir    = 0;       %  Detect only events with dydt<0
 end
  
 function [eventvalue,stopthecalc,eventdir] = event_stop(T,Z)
