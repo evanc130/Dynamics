@@ -20,4 +20,4 @@ r_ph_num = vpa(r_ph_sub,n);
 r_th_num = vpa(r_th_sub,n);
 r_ps_num = vpa(r_ps_sub,n);
 
-R_num=r_ps_num*r_th_num*r_ph_num
+R_num=r_ps_num*r_th_num*r_ph_num;

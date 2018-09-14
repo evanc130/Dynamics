@@ -92,8 +92,8 @@ PE2l =  ml * g * zout2(:,3);
 PE2 = PE2u + PE2l;
 
 %spring
-Espring1=abs(1/2*k*(zout1(:,1)-zout1(:,3)-L0).^2)
-Espring2=abs(1/2*k*(zout2(:,1)-zout2(:,3)-L0).^2)
+Espring1=abs(1/2*k*(zout1(:,1)-zout1(:,3)-L0).^2);
+Espring2=abs(1/2*k*(zout2(:,1)-zout2(:,3)-L0).^2);
 
 Etotal1 = KE1 + PE1+Espring1;
 Etotal2 = KE2 + PE2+Espring2;

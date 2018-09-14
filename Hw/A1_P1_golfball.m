@@ -33,7 +33,7 @@ z_0=0;
 
 metric=2.2;
 
-v=130/metric;
+v=130/metric
 th=45;
 
 vx_0=v*cosd(th);
@@ -41,7 +41,7 @@ vy_0=0;
 vz_0=v*sind(th);
 
 vx_w=0/metric;
-vy_w=150/metric;
+vy_w=15/metric;
 vz_w=0/metric;
 
 % for i=1:3
